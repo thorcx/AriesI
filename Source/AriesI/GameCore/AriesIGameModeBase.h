@@ -12,8 +12,8 @@ UCLASS()
 class ARIESI_API AAriesIGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
-	
+public:
+	AAriesIGameModeBase();
 	
 	
 };
