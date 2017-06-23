@@ -3,6 +3,9 @@
 #include "AriesI.h"
 #include "AriesIWarriorBase.h"
 #include "PaperSpriteComponent.h"
+#include "AriesIPickupBase.h"
+#include "AriesICoin.h"
+
 
 // Sets default values
 AAriesIWarriorBase::AAriesIWarriorBase()
@@ -132,7 +135,7 @@ void AAriesIWarriorBase::LookUpAtRate(float Rate)
 void AAriesIWarriorBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	OnCollectPickup();
 }
 
 // Called to bind functionality to input
@@ -172,5 +175,26 @@ void AAriesIWarriorBase::OnChangeHealthByAmount(float usedAmount)
 void AAriesIWarriorBase::OnPostAttack()
 {
 	IsAttacking = false;
+}
+
+void AAriesIWarriorBase::OnCollectPickup()
+{
+	TArray<AActor*> CollectedPickups;
+	this->GetCapsuleComponent()->GetOverlappingActors(CollectedPickups);
+	for (int32 i = 0; i < CollectedPickups.Num(); i++)
+	{
+		AAriesIPickupBase *pickupBase = Cast<AAriesIPickupBase>(CollectedPickups[i]);
+		if (pickupBase && !pickupBase->IsPendingKill() && pickupBase->IsActive())
+		{
+			pickupBase->OnGetCollected();
+			AAriesICoin *coin = Cast<AAriesICoin>(pickupBase);
+			if (coin)
+			{
+				CollectedCoinsValue += coin->GetCoinValue();
+				++CollectedCoinNumber;
+			}
+			pickupBase->SetActive(false);
+		}
+	}
 }
 

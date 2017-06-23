@@ -9,14 +9,17 @@ public class AriesI : ModuleRules
         PrivateIncludePaths.AddRange(
             new string[] {
                 "AriesI/GameCore",
+                "AriesI/GameCore/AI",
                 "AriesI/GameData",
-                "AiresI/Characters",
+                "AriesI/Characters",
+                "AriesI/Characters/Enemies",
+                "AriesI/GameItems"
             }
         );
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "Paper2D" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "Paper2D", "AIModule" });
 
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

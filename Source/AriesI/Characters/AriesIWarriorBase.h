@@ -70,6 +70,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Player Actions")
 	void OnPostAttack();
 
+	//* 拾取 */
+	UFUNCTION(BlueprintCallable, Category=PickupSystem)
+	void OnCollectPickup();
+
 protected:
 	//* 玩家当前血量 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player Attributes")
@@ -112,6 +116,13 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Game DataTables")
 	UAriesIGameTables* TablesInstance;
 	
+	//* 总拾取金币分数 */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Player Item")
+	float CollectedCoinsValue;
+
+	//* 总拾取金币数 */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Player Item")
+	int32 CollectedCoinNumber;
 
 	//* 摄像机摇臂 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta=(AllowPrivateAccess="true"))
