@@ -2,7 +2,7 @@
 
 #include "AriesI.h"
 #include "AriesIGameModeBase.h"
-
+#include "Blueprint/UserWidget.h"
 
 
 
@@ -13,4 +13,16 @@ AAriesIGameModeBase::AAriesIGameModeBase()
 	{
 		DefaultPawnClass = playerClass.Class;
 	}
+}
+
+void AAriesIGameModeBase::BeginPlay()
+{
+	Super::BeginPlay();
+	GameUIWIdget = CreateWidget<UUserWidget>(GetWorld(), GameUIWidgetClass);
+	if (GameUIWIdget)
+	{
+		GameUIWIdget->AddToViewport();
+	}
+
+	
 }

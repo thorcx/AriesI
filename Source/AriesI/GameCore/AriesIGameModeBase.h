@@ -15,5 +15,14 @@ class ARIESI_API AAriesIGameModeBase : public AGameModeBase
 public:
 	AAriesIGameModeBase();
 	
-	
+	virtual void BeginPlay() override;
+
+protected:
+	//* 设定BP内UMG类型，注意这里要在蓝图的继承gamemode内指定好 */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category=UI)
+	TSubclassOf<class UUserWidget> GameUIWidgetClass;
+
+	//* UMG的实例*/
+	UPROPERTY(BlueprintReadWrite, Category = UI)
+	class UUserWidget*	GameUIWIdget;
 };

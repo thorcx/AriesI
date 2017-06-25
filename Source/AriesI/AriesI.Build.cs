@@ -19,7 +19,7 @@ public class AriesI : ModuleRules
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "Paper2D", "AIModule" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "Paper2D", "AIModule","Slate","SlateCore","UMG" });
 
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

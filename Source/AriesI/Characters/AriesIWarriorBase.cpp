@@ -54,7 +54,13 @@ AAriesIWarriorBase::AAriesIWarriorBase()
 void AAriesIWarriorBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	UAriesISaveGame *loadGame = Cast<UAriesISaveGame>(UGameplayStatics::CreateSaveGameObject(UAriesISaveGame::StaticClass()));
+	loadGame = Cast<UAriesISaveGame>(UGameplayStatics::LoadGameFromSlot(loadGame->SlotName, loadGame->PlayerIndex));
+	float loadedPlayerHealth = loadGame->PlayerHealth;
+	if (loadedPlayerHealth != 0.0f)
+	{
+		TotalHealth = loadedPlayerHealth;
+	}
 }
 
 void AAriesIWarriorBase::MoveForward(float Value)
@@ -170,6 +176,10 @@ void AAriesIWarriorBase::OnChangeHealthByAmount(float usedAmount)
 	FOutputDeviceNull ar;
 	//特殊的直接呼叫蓝图函数,蓝图函数实现表现层效果
 	this->CallFunctionByNameWithArguments(TEXT("ApplyGetDamageEffect"), ar, NULL, true);
+	UAriesISaveGame* saveGame = Cast<UAriesISaveGame>(UGameplayStatics::CreateSaveGameObject(UAriesISaveGame::StaticClass()));
+	saveGame->PlayerHealth = TotalHealth;
+	UGameplayStatics::SaveGameToSlot(saveGame, saveGame->SlotName, saveGame->PlayerIndex);
+
 }
 
 void AAriesIWarriorBase::OnPostAttack()
